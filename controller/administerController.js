@@ -1,4 +1,4 @@
-const db = require("../config/dbConfig");
+const db = require("../config/dbConnector");
 
 exports.showAdminPage = async (req, res) => {
     const student_query = "SELECT name, rrn, device_token, fid FROM student";

@@ -1,4 +1,4 @@
-const db = require("../config/dbConfig");
+const db = require("../config/dbConnector");
 
 exports.showLoginPage = (req, res) => {
     res.render("index");
