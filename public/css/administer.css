@@ -1,0 +1,19 @@
+@import "/css/header.css";
+@import "/css/body.css";
+@import "/css/addHeader.css";
+@import "/css/addFamilyForm.css";
+
+@font-face {
+    font-family: 'Gyeonggi_Batang_Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-3@1.0/Batang_Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    font-family: 'Gyeonggi_Batang_Regular', serif;
+}
+

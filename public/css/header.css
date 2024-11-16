@@ -1,0 +1,79 @@
+.header {
+    width: 100%;
+    height: 5em; 
+    display: flex;
+    background-color: #3B383E;
+    align-items: center;
+    position: fixed;
+}
+
+.header-first {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+.header-first img {
+    margin-right: 1em;
+}
+
+.header-first p {
+    color: white;
+    font-size: 1.6em;
+}
+
+.header-second {
+    display: flex;
+    margin-left: auto;
+    margin-right: 2em;
+    justify-content: space-between;
+}
+
+.header-find {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 1em;
+}
+
+.header-find input {
+    height: 2em;
+    border-radius: 1em;
+    padding-left: 1em;
+    border: none;
+    outline: none;
+}
+
+.header-find i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header-add {
+    display: flex;
+    align-items: center;
+    width: 8em;
+    justify-content: center;
+    margin-right: 1em;
+    color: white;
+    cursor: pointer;
+}
+
+.header-add:hover {
+    color: black;
+}
+
+.header-logout {
+    display: flex;
+    align-self: center;
+    color: white;
+    cursor: pointer;
+}
+
+.header-logout:hover {
+    color: black;
+}

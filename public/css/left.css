@@ -1,0 +1,31 @@
+.left {
+    display: flex;
+    flex-direction: column;      
+    align-items: center;         
+    justify-content: center;     
+    text-align: center;       
+}
+
+.image-title-container {
+    display: flex;              
+    align-items: center;        
+}
+
+#checkmate-image {
+    margin-right: 15px;         
+}
+
+#left-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+}
+
+#left-text {
+    font-size: 18px;
+    color: white;
+    max-width: 400px;         
+    line-height: 1.7;         
+    margin-top: 50px;         
+}
+

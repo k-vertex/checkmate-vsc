@@ -1,0 +1,21 @@
+@import "/css/left.css";
+@import "/css/right.css";
+
+@font-face {
+    font-family: 'Gyeonggi_Batang_Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-3@1.0/Batang_Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: linear-gradient(70deg, #3B383E 50%, white 50%);
+    font-family: 'Gyeonggi_Batang_Regular', serif;
+}
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/administer.css">
+    <title>CHECKMATE</title>
+    <script src="https://kit.fontawesome.com/3f8f53c026.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-first">
+            <img src="/img/checkmate.png" alt="#" width="60" height="60">
+            <p>CHECKMATE</p>
+        </div>
+        
+        <div class="header-second"> 
+            <form action="" class="header-find">
+                <input type="text" placeholder="가족 명 검색"></p>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </form>
+
+            <div class="header-add"> 
+                <p>가족 추가하기</p>
+            </div>
+
+            <div class="header-logout">
+                <p>로그아웃</p>
+            </div>
+        </div>
+    </div>
+    <div class="family">
+        <% for (const fid in groupedData) { %>
+            <div class="family-attribute" data-fid="<%= fid %>">
+                <div class="family-attribute--header">
+                    <i class="fa-solid fa-chevron-right toggle-icon"></i>
+                    <i class="fa-solid fa-wrench"></i>
+                </div>
+                <% groupedData[fid].forEach(item => { %>    
+                    <div class="family-attribute--people">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <span class="name"><%= item.name %> </span> 
+                        <span class="rrn"><%= item.rrn %></span>
+                        <span class="device_token"><%= item.device_token %></span>
+                        <span class="type"><%= item.type %></span>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>   
+    </div>  
+
+    <script src="/js/adminster.js"></script>
+</body>
+</html>
