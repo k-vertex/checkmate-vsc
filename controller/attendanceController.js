@@ -1,19 +1,26 @@
 const db = require("../config/dbConnector");
 const key = require("../config/securityConfig");
 
-//임베디드에서 오는 출결처리랑 선생님들이 웹이나 앱에서 해주는 출결 처리를 한 라우팅으로 할 건지 아니면 다른 라우팅으로 처리할건지 고민
+exports.setDeviceAttendance = (req, res) => {
+    const { deviceToken, attendance, embededKey } = req.body;
+    if(embededKey == key)
+        attend(deviceToken, attendance);
+}
 
-exports.attend = (req, res) => {
-    const { deviceToken, attendance } = req.body;
+exports.setManualAttendance = (req, res) => {
+    const { deviceToken, attendance, id = "NULL", password = "NULL" } = req.body;
+    if(id == "NULL" || password == "NULL")
+        return;
+    attend(deviceToken, attendance);
+}
+
+function attend(deviceToken, attendance) {
     const date = formatDate(new Date());
     const query = "INSERT INTO attendance VALUES((SELECT student_id FROM attendance WHERE device_token=?), ?, ?);";
     db.query(query, [deviceToken, date, attendance], (err, results) => {
         if(err) {
             if(err.code == "ER_DUP_ENTRY") { 
-                if(attendance == 1) { //이미 출석을 찍은 경우
-                }
-                else
-                    updateAttendance(deviceToken, date, attendance);
+                updateAttendance(deviceToken, date, attendance);
             }
             else {
                 console.error("출석 실패:", err);
