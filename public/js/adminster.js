@@ -5,24 +5,36 @@ document.addEventListener('DOMContentLoaded', function() {
         icon.addEventListener('click', function() {
             const familyAttribute = this.closest('.family-attribute'); 
             const peopleSections = familyAttribute.querySelectorAll('.family-attribute--people'); 
-            const plus = familyAttribute.querySelector('.fa-plus');
             const fix = familyAttribute.querySelector('.fa-wrench');
+            const plus = familyAttribute.querySelector('.fa-plus');
+            const hmm = familyAttribute.querySelector('.family-attribute--headers');
         
             peopleSections.forEach(peopleSection => {
                 peopleSection.classList.toggle('hide'); 
             });
             
+            if (fix) fix.classList.toggle('hide');
+            if (hmm) hmm.classList.toggle('hide');
+            if (plus) plus.classList.toggle('hide');
+
             if (this.classList.contains('fa-chevron-down')) {
                 this.classList.remove('fa-chevron-down');
                 this.classList.add('fa-chevron-right');
-                plus.style.display = 'inline';
-                fix.style.display = 'inline'; 
             } else {
                 this.classList.remove('fa-chevron-right');
                 this.classList.add('fa-chevron-down');
-                plus.style.display = 'none';  
-                fix.style.display = 'none';
             }
+        });
+    });
+
+    const plusIcons = document.querySelectorAll('.fa-plus');
+
+    plusIcons.forEach(plus => {
+        plus.addEventListener('click', function () {
+            const familyAttribute = this.closest('.family-attribute'); 
+            const fid = familyAttribute.getAttribute('data-fid'); 
+            
+            window.location.href = `/main/add/${fid}`; 
         });
     });
 });

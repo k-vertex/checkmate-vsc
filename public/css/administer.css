@@ -15,5 +15,6 @@ body {
     margin: 0;
     width: 100%;
     font-family: 'Gyeonggi_Batang_Regular', serif;
+    flex-direction: column;
 }
 

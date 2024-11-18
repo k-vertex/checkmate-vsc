@@ -1,10 +1,9 @@
 .addPage-header {
-    width: 100%;
+    width: inherit;
     height: 5em; 
     display: flex;
     background-color: #3B383E;
     align-items: center;
-    position: fixed;
 }
 
 .addPage-header-first {

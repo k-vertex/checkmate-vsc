@@ -8,6 +8,7 @@
     <script src="https://kit.fontawesome.com/3f8f53c026.js" crossorigin="anonymous"></script>
 </head>
 <body class="addPage-body">
+
     <div class="addPage-header">
         <div class="addPage-header-first">
             <img src="/img/checkmate.png" alt="#" width="60" height="60">
@@ -16,7 +17,7 @@
         
         <div class="addPage-header-second"> 
             <div class="addPage-header-title"> 
-                <p>가족 추가하기</p>
+                <p><%= title %></p>
             </div>
         </div>
     </div>
@@ -43,13 +44,30 @@
             </div>
 
             <div class="form-btn">
-                <button class="btn1" disabled>삭제</button>
+                <button class="btn1" type="button" disabled>삭제</button>
                 <button class="btn2">저장</button>
             </div>
         </form> 
     </div>
 
-    <script src="/js/addFamily.js"></script>
+    <div class="plus-form">
+        <form action="">
+            <button class="family-plus">
+                구성원 추가
+            </button>
 
+            <button class="back-btn">
+                뒤로 가기
+            </button>
+        </form>
+    </div>
+
+    <script src="/js/addFamily.js"></script> 
+    <script>
+        window.fid = "<%= fid %>";  
+        console.log(window.fid);  
+    </script>
+    
+    
 </body>
 </html>
