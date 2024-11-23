@@ -22,8 +22,9 @@ exports.getAttendanceStatus = (req, res) => {
         res.status(404).send("학생ID가 없음");
         return;
     }
-    const query = "SELECT date, checked FROM attendance WHERE student_id=?";
-    db.query(query, [studentID], (err, results) => {
+    const date = `${year}-${month}-01`
+    const query = "SELECT date, checked FROM attendance WHERE student_id=? AND date >= ?";
+    db.query(query, [studentID, date], (err, results) => {
         if(!err) {
             res.status(200).json(results);
         }
