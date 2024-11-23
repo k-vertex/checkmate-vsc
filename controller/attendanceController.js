@@ -14,6 +14,22 @@ exports.setManualAttendance = (req, res) => {
     attend(deviceToken, attendance);
 }
 
+exports.getAttendanceStatus = (req, res) => {
+    const studentID  = req.query.studentID;
+    const year = req.query.year;
+    const month = req.query.month;
+    if(studentID == null) {
+        res.status(404).send("학생ID가 없음");
+        return;
+    }
+    const query = "SELECT date, checked FROM attendance WHERE student_id=?";
+    db.query(query, [studentID], (err, results) => {
+        if(!err) {
+            res.status(200).json(results);
+        }
+    });
+}
+
 function attend(deviceToken, attendance) {
     const date = formatDate(new Date());
     const query = "INSERT INTO attendance VALUES((SELECT student_id FROM attendance WHERE device_token=?), ?, ?);";
