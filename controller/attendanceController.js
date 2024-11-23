@@ -24,7 +24,7 @@ exports.getAttendanceStatus = (req, res) => {
     }
     const date = new Date(`${year}-${month}-01`);
     const minDate = formatDate(date);
-    date.setMonth(date.getMonth + 1);
+    date.setMonth(date.getMonth() + 1);
     const maxDate = formatDate(date);
     const query = "SELECT date, checked FROM attendance WHERE student_id=? AND date >= ? AND date < ?";
     db.query(query, [studentID, minDate, maxDate], (err, results) => {
