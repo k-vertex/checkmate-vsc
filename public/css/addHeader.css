@@ -8,6 +8,7 @@
 
 .addPage-header-first {
     display: flex;
+    width: inherit;
     align-items: center;
     margin-left: 1em;
     cursor: pointer;
@@ -22,15 +23,13 @@
     font-size: 1.6em;
 }
 
-.addPage-header-second {
+.addPage-header-title {
     display: flex;
-    width: 100%;
     justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.addPage-header-title p {
-    color: white;
-    font-size: 1.6em;
-}
 
 

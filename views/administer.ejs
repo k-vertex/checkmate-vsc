@@ -21,7 +21,7 @@
             </form>
 
             <div class="header-add"> 
-                <p>가족 추가하기</p>
+                <p>가족 추가</p>
             </div>
 
             <div class="header-logout">
@@ -35,22 +35,31 @@
                 <div class="family-attribute--header">
                     <i class="fa-solid fa-chevron-right toggle-icon"></i>
                     <i class="fa-solid fa-plus"></i>
+                    <span class="student-name">학생 이름: </span>
+
+                    <%= groupedData[fid]
+                        .filter(item => item.type === "학생")
+                        .map(item => item.name)
+                        .join(", ") %>
+
                 </div>
                 <div class="family-attribute--headers">
-                    <span class="hide2">test</span>
                     <span class="header-name">이름</span>
                     <span class="header-rrn">주민번호</span>
                     <span class="header-device-token">기기토큰</span>
                     <span class="header-type">관계</span>
-                    <span class="hide2">test</span>
-                    <span class="hide2">test</span>
                 </div>
-                <% groupedData[fid].forEach(item => { %>
-                    
-                    <div class="family-attribute--people">
+                <% groupedData[fid].forEach(item => { 
+                    const rrnParts = item.rrn.split('-');
+                    const formattedRrn = `${rrnParts[0]}-${rrnParts[1].charAt(0)}******`;
+                %>
+            
+                    <div class="family-attribute--people" 
+                        id="<%= item.type === '학생' ? item.student_id : item.parent_id %>"
+                        data-type="<%= item.type %>">
                         <i class="fa-solid fa-circle-user"></i>
                         <span class="name"><%= item.name %> </span> 
-                        <span class="rrn"><%= item.rrn %></span>
+                        <span class="rrn"><%= formattedRrn %></span>
                         <span class="device_token"><%= item.device_token %></span>
                         <span class="type"><%= item.type %></span>
                         <% if (item.attend !== null) { %>

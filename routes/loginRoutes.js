@@ -3,8 +3,7 @@ const router = express.Router();
 const loginController = require("../controller/loginController");
 const adminsterController = require("../controller/administerController");
 
-router.get("/", loginController.showLoginPage);  
-router.post("/", loginController.handleLogin);  
+router.route("/").get(loginController.showLoginPage).post(loginController.handleLogin);  
 router.get("/main", loginController.isAuthenticated, adminsterController.showAdminPage); 
 router.post("/logout", loginController.logout);
 

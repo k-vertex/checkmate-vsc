@@ -13,56 +13,51 @@
         <div class="addPage-header-first">
             <img src="/img/checkmate.png" alt="#" width="60" height="60">
             <p>CHECKMATE</p>
-            <p class="addPage-header-title"><%= title %></p>
+            <p class="addPage-header-title"><%= person.name %> 편집</p>
         </div>
     </div>
 
     <div class="form-container">
-        <form action="/main/add" method="POST">
+        <form action="/main/edit/<%= person.type === '학생' ? 'student' : 'parent' %>/<%= id %>" method="PUT">
             <div class="input-box">
                 <label for="">이름</label>
-                <input type="text" placeholder="이름" name="name" required>
+                <input type="text" placeholder="이름" name="name" required value="<%= person.name %>">
               </div>
 
             <div class="input-box">
                 <label for="">주민등록번호</label>
-                <input type="text" placeholder="000000-0000000" name="rrn" required maxlength="14">
+                <input type="text" placeholder="000000-0000000" name="rrn" required maxlength="14" value="<%= person.rrn %>">
                 <small id="rrn-error" style="color: red; display: none;">유효한 주민등록번호를 입력하세요. (000000-0000000)</small>
             </div>
 
             <div class="input-box">
                 <label for="">기기토큰</label>
-                <input type="text" placeholder="기기토큰" name="device_token" required>
+                <input type="text" placeholder="기기토큰" name="device_token" required value="<%= person.device_token %>">
             </div>
 
             <div class="input-box">
                 <label for="">관계</label>
                 <select>
-                    <option value="student">학생</option>
-                    <option value="parent">부모</option>
+                    <option value="student" <%= person.type === '학생' ? 'selected' : ''%>>학생</option>
+                    <option value="parent" <%= person.type === '부모' ? 'selected' : ''%>>부모</option>
                 </select>
             </div>
-
             <div>
-                <input type="submit" value="추가" class="add-btn">
+                <input type="submit" value="수정" class="add-btn">
             </div>
+            
         </form> 
     </div>
 
     <div class="plus-form">
         <form action="">
-            <button class="back-btn">
-                취소
-            </button>
+            <button class="back-btn">취소</button>
+            <button class="delete-btn">삭제</button>
         </form>
     </div>
 
-    <script src="/js/addFamily.js"></script> 
-    <script>
-        window.fid = "<%= fid %>";  
-        console.log(window.fid);  
-    </script>
-    
-    
+    <script src="/js/editFamily.js">
+        const id = "<%= id %>"; 
+    </script> 
 </body>
 </html>

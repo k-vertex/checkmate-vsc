@@ -1,95 +1,78 @@
 .form-container {
-    display: flex; 
-    margin-top: 7em;
-    width: 100%;
-    gap: 20px; 
-    justify-content: center; 
-    align-items: flex-start; 
-    overflow-x: auto; 
-    box-sizing: border-box;
+    width: 90%;
+    max-width: 600px;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .5); 
+    border-radius: 12px;
 }
 
-.form-container form {
-    border: 1px sold black;
-    display: flex; 
-    flex-direction: column; 
-    gap: 20px; 
-    border: 1px solid black; 
-    padding: 20px; 
-    border-radius: 10px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-    flex-shrink: 0;
-}
-
-.input-box input,
-.input-box select {
-    width: 280px; 
-    padding: 10px; 
-    border: 1px solid black; 
-    border-radius: 5px; 
-}
-
-.input-box select {
-    width: 303px; 
-}
-
-.form-btn {
+.input-box {
     display: flex;
-    justify-content: flex-end;
-    
+    flex-direction: column;
+    margin-bottom: 1.5em;
 }
 
-.btn2 {
-    margin-left: 5px;
+.input-box label {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: black;
 }
 
-.btn1,
-.btn2 {
-    border: 1px solid black;
+.input-box input, .input-box select {
+    padding: 0.8em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    outline: none;
+}
+
+.input-box input:focus, .input-box select:focus {
+    border-color: #3B383E;
+}
+
+.add-btn, .back-btn, .delete-btn {
+    width: 100%;
+    padding: 0.8em;
+    font-size: 1em;
+    font-weight: bold;
     color: white;
-    background-color: #3B383E;
-    width: 50px;
-    height: 30px;
-    border-radius: 20px;
-}
-
-.btn1:hover,
-.btn2:hover {
+    background-color: #3B383E; 
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
+    letter-spacing: 5px; 
 }
 
-.btn1:disabled,
-.btn2:disabled {
-    border: 1px solid grey;
-    background-color: grey;
+.add-btn:hover {
+    background-color: #2b2a2e; 
 }
 
+.back-btn {
+    background-color: #ff4d4d;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+}
+
+.back-btn:hover {
+    background-color: #cc0000;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+.back-btn {
+    margin-bottom: 1.1em;
+}
 
 .plus-form {
-    margin-top: 10em;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.family-plus i {
-    border: 1px sold black;
-}
-
-.family-plus,
-.back-btn {
-    border: 1px solid black;
-    color: white;
-    background-color: #3B383E;
-    width: 100px;
-    height: 40px;
-    border-radius: 20px;
-}
-
-.back-btn {
-    margin-right: 3em;
-}
-
-.family-plus:hover,
-.back-btn:hover {
-    cursor: pointer;
+    width: 90%;
+    max-width: 600px;
+    margin: 0.2em auto;
+    text-align: center;
 }

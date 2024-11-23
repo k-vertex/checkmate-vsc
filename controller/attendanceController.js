@@ -19,9 +19,9 @@ function attend(deviceToken, attendance) {
     const query = "INSERT INTO attendance VALUES((SELECT student_id FROM attendance WHERE device_token=?), ?, ?);";
     db.query(query, [deviceToken, date, attendance], (err, results) => {
         if(err) {
-            if(err.code == "ER_DUP_ENTRY") { 
+            if (err.code == "ER_DUP_ENTRY") { 
                 updateAttendance(deviceToken, date, attendance);
-            }
+            }   
             else {
                 console.error("출석 실패:", err);
                 res.status(500).send("서버 오류");

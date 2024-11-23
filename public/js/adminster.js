@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const fix = familyAttribute.querySelector('.fa-wrench');
             const plus = familyAttribute.querySelector('.fa-plus');
             const hmm = familyAttribute.querySelector('.family-attribute--headers');
-        
+
             peopleSections.forEach(peopleSection => {
                 peopleSection.classList.toggle('hide'); 
             });
@@ -28,13 +28,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const plusIcons = document.querySelectorAll('.fa-plus');
-
+    
     plusIcons.forEach(plus => {
         plus.addEventListener('click', function () {
             const familyAttribute = this.closest('.family-attribute'); 
             const fid = familyAttribute.getAttribute('data-fid'); 
             
             window.location.href = `/main/add/${fid}`; 
+        });
+    });
+
+    const wrenchIcons = document.querySelectorAll('.fa-wrench');
+    
+    wrenchIcons.forEach(wrench => {
+        wrench.addEventListener('click', function () {
+            const people = this.closest('.family-attribute--people');
+            const id = people.getAttribute('id');  
+            const type = people.getAttribute('data-type');
+
+            if (type === '학생') {
+                window.location.href = `/main/edit/student/${id}`; 
+            } else if (type === '부모') {
+                window.location.href = `/main/edit/parent/${id}`; 
+            }
         });
     });
 });

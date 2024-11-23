@@ -19,3 +19,7 @@ body {
     font-family: 'Gyeonggi_Batang_Regular', serif;
 }
 
+::placeholder {
+    font-family: 'Gyeonggi_Batang_Regular', serif;
+}
+
