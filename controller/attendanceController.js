@@ -1,10 +1,12 @@
 const db = require("../config/dbConnector");
 const key = require("../config/securityConfig");
+const sendPushNotification = require("../FCMAppServer");
 
 exports.setDeviceAttendance = (req, res) => {
     const { deviceToken, attendance, embededKey } = req.body;
-    if(embededKey == key)
+    if(embededKey == key) {
         attend(deviceToken, attendance);
+    }
 }
 
 exports.setManualAttendance = (req, res) => {
@@ -36,18 +38,19 @@ exports.getAttendanceStatus = (req, res) => {
 
 function attend(deviceToken, attendance) {
     const date = formatDate(new Date());
-    const query = "INSERT INTO attendance VALUES((SELECT student_id FROM attendance WHERE device_token=?), ?, ?);";
-    db.query(query, [deviceToken, date, attendance], (err, results) => {
-        if(err) {
-            if (err.code == "ER_DUP_ENTRY") { 
-                updateAttendance(deviceToken, date, attendance);
-            }   
-            else {
-                console.error("출석 실패:", err);
-                res.status(500).send("서버 오류");
-            }
-        }
-    });
+    sendPushNotification("test", "hi", deviceToken);
+    // const query = "INSERT INTO attendance VALUES((SELECT student_id FROM attendance WHERE device_token=?), ?, ?);";
+    // db.query(query, [deviceToken, date, attendance], (err, results) => {
+    //     if(err) {
+    //         if (err.code == "ER_DUP_ENTRY") { 
+    //             updateAttendance(deviceToken, date, attendance);
+    //         }   
+    //         else {
+    //             console.error("출석 실패:", err);
+    //             res.status(500).send("서버 오류");
+    //         }
+    //     }
+    // });
 }
 
 function updateAttendance(deviceToken, date, attendance) {

@@ -5,13 +5,13 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-exports.sendPushNotification = () => {
+const sendPushNotification = (title, content, token) => {
     const message = {
-        data: {
-          score: '850',
-          time: '2:45'
+        notification: {
+          title: title,
+          body: content
         },
-        token: 'fvTsmOU1SOeyYAjdTNoXCO:APA91bEN0woBFlTWH-TGLLLILwAtU5IlsLH368lQwaes5qdcOliAjL-vdXsqO1a42anmDfPLLAiQHbJVlhNr3IMXLKzVI8Rd6xxDVcSQNQHNsZrfgnanjKk'
+        token: token
       };
     admin.messaging().send(message)
     .then((response) => {
@@ -21,3 +21,5 @@ exports.sendPushNotification = () => {
         console.log('Error sending message:', error);
     });
 }
+
+module.exports = sendPushNotification;
