@@ -9,11 +9,11 @@ exports.handleLogin = (req, res) => {
     if(id == null || password == null || userType == null)
         return;
     if(userType == "관계자")
-        loginAdmin(id, password);
+        loginAdmin(res, id, password);
     else if(userType == "학생")
-        loginStudent(id, password);
+        loginStudent(res, id, password);
     else if(userType == "학부모")
-        loginParent(id, password);
+        loginParent(res, id, password);
 };
 
 exports.isAuthenticated = (req, res, next) => {
@@ -33,7 +33,7 @@ exports.logout = (req, res) => {
     });
 }
 
-function loginAdmin(id, password) {
+function loginAdmin(res, id, password) {
     const query = "SELECT * FROM manager WHERE id = ? AND password = ?";
     db.query(query, [id, password], (err, results) => {
         if (err) {
@@ -48,7 +48,7 @@ function loginAdmin(id, password) {
     });
 }
 
-function loginStudent(id, password) {
+function loginStudent(res, id, password) {
     const query = "SELECT device_token, fid FROM student WHERE id = ? AND password = ?";
     db.query(query, [id, password], (err, results) => {
         if (err) {
@@ -64,7 +64,7 @@ function loginStudent(id, password) {
     });
 }
 
-function loginParent(id, password) {
+function loginParent(res, id, password) {
     const query = "SELECT fid FROM parent WHERE id = ? AND password = ?";
     db.query(query, [id, password], (err, results) => {
         if (err) {
