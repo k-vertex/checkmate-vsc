@@ -9,8 +9,9 @@ exports.register = (req, res) => { //프로토타입이기에 학원 이름은 �
         user = "student";
     else
         user = "parent"
-    const query = `UPDATE ${user} SET id=?, password=? WHERE ${user}_id=(SELECT ${user}_id FROM (SELECT ${user}_id FROM ${user} WHERE name=? AND rrn=?) AS tmp)`;
-    db.query(query, [id, password, name, rrn], (err, results) => {
+    const deviceToken = createDeviceToken();
+    const query = `UPDATE ${user} SET id=?, password=?, deviceToken=? WHERE ${user}_id=(SELECT ${user}_id FROM (SELECT ${user}_id FROM ${user} WHERE name=? AND rrn=?) AS tmp)`;
+    db.query(query, [id, password, deviceToken, name, rrn], (err, results) => {
         if (err) {
             console.error("회원가입 오류 발생:", err);
             res.status(500).send("서버 오류");
@@ -24,4 +25,13 @@ exports.register = (req, res) => { //프로토타입이기에 학원 이름은 �
            
         }
     });
-};
+}
+
+function createDeviceToken() {
+    const character = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+    let deviceToken = "";
+    for(let i = 0; i < 12; i++) {
+        deviceToken += character[parseInt(Math.random() * character.length)];
+    }
+    return deviceToken;
+}
