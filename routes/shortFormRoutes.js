@@ -3,18 +3,21 @@ const fs = require("fs");
 const router = express.Router();
 
 router.route("/").get((req, res) => {
-  const range = req.headers.range;
+  console.log("hi");
+  let range = req.headers.range;
   if (!range) {
-    res.status(400).send("Requires Range header");
-    return;
+    range = "1023";
   }
 
-  const videoPath = "../uploads/file-1732804050646.mp4";
+  const videoPath = "./uploads/file-1732807271116.mp4";
   const videoSize = fs.statSync(videoPath).size;
+  console.log(videoSize);
 
   const CHUNK_SIZE = 10 ** 6; // 1MB
   const start = Number(range.replace(/\D/g, ""));
   const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+
+console.log(videoSize);
 
   const contentLength = end - start + 1;
   const headers = {

@@ -5,15 +5,15 @@ exports.showLoginPage = (req, res) => {
 };
 
 exports.handleLogin = (req, res) => {
-    const { id, password, userType } = req.body;
+    const { id, password, userType, fcmToken } = req.body;
     if(id == null || password == null || userType == null)
         return;
     if(userType == "관계자")
         loginAdmin(res, id, password);
     else if(userType == "학생")
-        loginStudent(res, id, password);
+        loginStudent(res, id, password, fcmToken);
     else if(userType == "학부모")
-        loginParent(res, id, password);
+        loginParent(res, id, password, fcmToken);
 };
 
 exports.isAuthenticated = (req, res, next) => {
@@ -59,7 +59,7 @@ function loginStudent(res, id, password, fcmToken) {
             res.status(200).json(results);
             console.log(results);
             query = "UPDATE student SET fcm_token=? WHERE student_id=?"
-            db.query(query, [fcmToken, results.student_id], (err, results) => {
+            db.query(query, [fcmToken, results[0].student_id], (err, results) => {
                 if(err) {
                     console.error("deviceToken 삽입 중 오류", err);
                 }
