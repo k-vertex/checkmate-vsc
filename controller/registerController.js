@@ -10,7 +10,7 @@ exports.register = (req, res) => { //프로토타입이기에 학원 이름은 �
     else
         user = "parent"
     const deviceToken = createDeviceToken();
-    const query = `UPDATE ${user} SET id=?, password=?, deviceToken=? WHERE ${user}_id=(SELECT ${user}_id FROM (SELECT ${user}_id FROM ${user} WHERE name=? AND rrn=?) AS tmp)`;
+    const query = `UPDATE ${user} SET id=?, password=?, device_token=? WHERE ${user}_id=(SELECT ${user}_id FROM (SELECT ${user}_id FROM ${user} WHERE name=? AND rrn=?) AS tmp)`;
     db.query(query, [id, password, deviceToken, name, rrn], (err, results) => {
         if (err) {
             console.error("회원가입 오류 발생:", err);
