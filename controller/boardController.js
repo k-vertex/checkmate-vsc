@@ -10,7 +10,7 @@ exports.getArticle = (req, res) => {
             res.status(500).send("오류");
         } 
         else if (results.length > 0) {
-            rse.status(200).json(results);
+            res.status(200).json(results);
         } 
         else {
             res.status(200).send("더 이상 게시글이 없음");

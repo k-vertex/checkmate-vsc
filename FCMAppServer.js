@@ -7,9 +7,9 @@ admin.initializeApp({
 
 const sendPushNotification = (title, content, token) => {
     const message = {
-        notification: {
+        data: {
           title: title,
-          body: content
+          msg: content
         },
         token: token
       };

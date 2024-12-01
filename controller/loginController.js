@@ -61,7 +61,7 @@ function loginStudent(res, id, password, fcmToken) {
             query = "UPDATE student SET fcm_token=? WHERE student_id=?"
             db.query(query, [fcmToken, results[0].student_id], (err, results) => {
                 if(err) {
-                    console.error("deviceToken 삽입 중 오류", err);
+                    console.error("fcm_token 삽입 중 오류", err);
                 }
             });
         } 
@@ -80,10 +80,10 @@ function loginParent(res, id, password, fcmToken) {
         } 
         else if (results.length > 0) {
             res.status(200).json(results);
-            query = "UPDATE parent SET fcm_token=? WHERE sparent_id=?"
-            db.query(query, [fcmToken, results.parent_id], (err, results) => {
+            query = "UPDATE parent SET fcm_token=? WHERE parent_id=?"
+            db.query(query, [fcmToken, results[0].parent_id], (err, results) => {
                 if(err) {
-                    console.error("deviceToken 삽입 중 오류", err);
+                    console.error("fcm_token 삽입 중 오류", err);
                 }
             });
         } 
