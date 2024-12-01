@@ -7,6 +7,7 @@ const attendanceRoutes = require("./routes/attendanceRoutes");
 const registerRoutes = require("./routes/registerRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const shortFormRoutes = require("./routes/shortFormRoutes");
+const boardRoutes = require("./routes/boardRoutes");
 
 const app = express();
 const port = 8080;
@@ -26,6 +27,7 @@ app.use("/attend", attendanceRoutes);
 app.use("/register", registerRoutes);
 app.use("/upload", uploadRoutes);
 app.use("/video", shortFormRoutes);
+app.use("/board", boardRoutes);
 
 app.listen(port, () => {
     console.log(`${port}번 포트에서 서버 실행 중`);
