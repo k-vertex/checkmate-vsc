@@ -15,4 +15,10 @@ function formatDateTime(date) {
     return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 }
 
-module.exports = formatDate;
+function formateTime(date) {
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    return `${hour}시 ${minute}분`;
+}
+
+module.exports =  { formatDate, formatDateTime, formateTime };

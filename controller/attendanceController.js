@@ -1,12 +1,13 @@
 const db = require("../config/dbConnector");
 const key = require("../config/securityConfig");
 const sendPushNotification = require("../FCMAppServer");
-const formatDate = require("../util/formatDate");
+const { formatDate, formateTime } = require("../util/formatDate");
 
 exports.setDeviceAttendance = (req, res) => {
     const { deviceToken, attendance, embededKey } = req.body;
     if(embededKey == key) {
         attend(deviceToken, attendance);
+        sendAttedanceMessage(deviceToken, formateTime(new Date()));
     }
 }
 
@@ -39,19 +40,18 @@ exports.getAttendanceStatus = (req, res) => {
 
 function attend(deviceToken, attendance) {
     const date = formatDate(new Date());
-    sendPushNotification("test", "hi", deviceToken);
-    // const query = "INSERT INTO attendance VALUES((SELECT student_id FROM attendance WHERE device_token=?), ?, ?);";
-    // db.query(query, [deviceToken, date, attendance], (err, results) => {
-    //     if(err) {
-    //         if (err.code == "ER_DUP_ENTRY") { 
-    //             updateAttendance(deviceToken, date, attendance);
-    //         }   
-    //         else {
-    //             console.error("출석 실패:", err);
-    //             res.status(500).send("서버 오류");
-    //         }
-    //     }
-    // });
+    const query = "INSERT INTO attendance VALUES((SELECT student_id FROM attendance WHERE device_token=?), ?, ?);";
+    db.query(query, [deviceToken, date, attendance], (err, results) => {
+        if(err) {
+            if (err.code == "ER_DUP_ENTRY") { 
+                updateAttendance(deviceToken, date, attendance);
+            }   
+            else {
+                console.error("출석 실패:", err);
+                res.status(500).send("서버 오류");
+            }
+        }
+    });
 }
 
 function updateAttendance(deviceToken, date, attendance) {
@@ -60,6 +60,20 @@ function updateAttendance(deviceToken, date, attendance) {
         if(err) {
             console.error("출석 업데이트 실패:", err);
             res.status(500).send("서버 오류");
+        }
+    });
+}
+
+function sendAttedanceMessage(deviceToken, time) {
+    const query = "SELECT fid, fcm_token, s.name FROM parent p LEFT OUTER JOIN (SELECT name, fid FROM student WHERE device_token = ?) s USING(fid);";
+    db.query(query, [deviceToken, date, attendance], (err, results) => {
+        if(!err) {
+            for(let i = 0; i < results.length; i++) {
+                const result = results[i];
+                token = result.fcm_token;
+                const msg = `${result.name}님이 ${time}에 등원하였습니다.`;
+                sendPushNotification("[ChekMate] 학원 등원", msg, token);
+            }
         }
     });
 }
