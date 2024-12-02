@@ -1,26 +1,28 @@
 const db = require("../config/dbConnector");
 
 exports.showLoginPage = (req, res) => {
-    res.render("index");
+    res.render("index", { session : req.session });
 };
 
 exports.handleLogin = (req, res) => {
     const { id, password, userType } = req.body;
-    if(id == null || password == null || userType == null)
+    if (id == null || password == null || userType == null) {
         return;
-    if(userType == "관계자")
-        loginAdmin(res, id, password);
-    else if(userType == "학생")
+    }
+    if (userType == "관계자")
+        loginAdmin(req, res, id, password);
+    else if (userType == "학생")
         loginStudent(res, id, password);
-    else if(userType == "학부모")
+    else if (userType == "학부모")
         loginParent(res, id, password);
 };
 
 exports.isAuthenticated = (req, res, next) => {
     if (req.session.loggedIn) {
-        return next();
+        next();
+    } else {
+        res.redirect("/");
     }
-    res.redirect("/");
 };
 
 exports.logout = (req, res) => {
@@ -33,7 +35,7 @@ exports.logout = (req, res) => {
     });
 }
 
-function loginAdmin(res, id, password) {
+function loginAdmin(req, res, id, password) {
     const query = "SELECT * FROM manager WHERE id = ? AND password = ?";
     db.query(query, [id, password], (err, results) => {
         if (err) {

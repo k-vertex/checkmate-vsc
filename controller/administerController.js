@@ -2,7 +2,7 @@ const db = require("../config/dbConnector");
 
 exports.showAdminPage = async (req, res) => {
     const student_query = "SELECT student_id, name, rrn, device_token, fid FROM student";
-    const parent_query = "SELECT parent_id, name, rrn, device_token, fid FROM parent";
+    const parent_query = "SELECT parent_id, name, rrn, fid FROM parent";
     
     try {
         const students = await new Promise((resolve, reject) => {

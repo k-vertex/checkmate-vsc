@@ -10,11 +10,11 @@
 <body class="addPage-body">
 
     <div class="addPage-header">
-        <div class="addPage-header-first">
+        <a class="addPage-header-first" href="/main">
             <img src="/img/checkmate.png" alt="#" width="60" height="60">
             <p>CHECKMATE</p>
-            <p class="addPage-header-title"><%= person.name %> 편집</p>
-        </div>
+        </a>
+        <p class="addPage-header-title"><%= person.name %> 편집</p>
     </div>
 
     <div class="form-container">
@@ -37,7 +37,7 @@
 
             <div class="input-box">
                 <label for="">관계</label>
-                <select>
+                <select disabled>
                     <option value="student" <%= person.type === '학생' ? 'selected' : ''%>>학생</option>
                     <option value="parent" <%= person.type === '부모' ? 'selected' : ''%>>부모</option>
                 </select>

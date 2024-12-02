@@ -16,27 +16,34 @@
             SNS 기능을 통해 학생과 교사 간의 커뮤니케이션을 더욱 효율적으로 만듭니다.
         </div>
     </div>
-    
-    <div class="right">
-        <form action="/" method="POST">
-          <h1>로그인</h1>
-          
-          <div class="input-box">
-            <input type="text" placeholder="아이디" name="id" required>
-          </div>
+    <% if (!session.loggedIn) { %>
+      <div class="right">
+          <form action="/" method="POST">
+            <h1>로그인</h1>
+            
+            <div class="input-box">
+              <input type="text" placeholder="아이디" name="id" required>
+            </div>
 
-          <div class="input-box">
-            <input type="password" placeholder="비밀번호" name="password" required>
-          </div>
+            <div class="input-box">
+              <input type="password" placeholder="비밀번호" name="password" required>
+            </div>
 
-          <button type="submit" class="login-btn">로그인</button>
+            <input type="hidden" name="userType" value="관계자">
 
-          <div class="question">
-            <p>계정을 등록하시겠습니까? 
-              <a href="#">관리자 문의</a>
-            </p>
-          </div>
-        </form>
+            <button type="submit" class="login-btn">로그인</button>
+            
+            <div class="question">
+              <p>계정을 등록하시겠습니까? 
+                <a href="#">관리자 문의</a>
+              </p>
+            </div>
+          </form>
     </div>
+  <% } else { %>
+      <form action="/main">
+          <button>CHECKMATE 사용하기</button>
+      </form>
+  <%}  %>
 </body>
 </html>

@@ -44,11 +44,11 @@
 }
 
 .family-attribute--headers span:nth-child(3) {
-    margin-left: 8.3em;
+    margin-left: 8.5em;
 }
 
 .family-attribute--headers span:last-child {
-    margin-left: 9.7em;
+    margin-left: 10.15em;
 }
 
 .family-attribute--people {
@@ -79,13 +79,13 @@ i {
     transition: all 0.3s ease;
 }
 
-i:hover {
-    color: black; /* 호버 시 색상 */
-    transform: scale(1.2); /* 호버 시 크기 확대 */ 
+i:not(.fa-magnifying-glass):not(.fa-circle-user):hover {
+    color: black;
+    transform: scale(1.2);
 }
 
-i.active {
-    transform: scale(1); /* 클릭 시 크기 원래대로 */
+i:not(.fa-magnifying-glass):not(.fa-circle-user).active {
+    transform: scale(1);
 }
 
 

@@ -13,6 +13,7 @@
     margin-right: auto;
     margin-left: 1em;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .header-first img {
