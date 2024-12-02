@@ -7,15 +7,15 @@ admin.initializeApp({
 
 const sendPushNotification = (title, content, token) => {
     const message = {
-        notification: {
+        data: {
           title: title,
-          body: content
+          msg: content
         },
         token: token
       };
     admin.messaging().send(message)
     .then((response) => {
-        console.log('Successfully sent message:', response);
+        console.log('Successfully sent message');
     })
     .catch((error) => {
         console.log('Error sending message:', error);
