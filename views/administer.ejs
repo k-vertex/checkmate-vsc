@@ -9,14 +9,14 @@
 </head>
 <body>
     <div class="header">
-        <a class="header-first" href="/">
+        <a class="header-first" href="/main">
             <img src="/img/checkmate.png" width="60" height="60">
             <p>CHECKMATE</p>
         </a>
         
         <div class="header-second"> 
-            <form action="" class="header-find">
-                <input type="text" placeholder="이름 검색"></p>
+            <form action="/main/search" method="GET" class="header-find">
+                <input type="text" placeholder="이름 검색" name="name"></p>
                 <i class="fa-solid fa-magnifying-glass"></i>
             </form>
 

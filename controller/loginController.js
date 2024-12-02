@@ -9,7 +9,7 @@ exports.handleLogin = (req, res) => {
     if(id == null || password == null || userType == null)
         return;
     if(userType == "관계자")
-        loginAdmin(res, id, password);
+        loginAdmin(req, res, id, password);
     else if(userType == "학생")
         loginStudent(res, id, password, fcmToken);
     else if(userType == "학부모")

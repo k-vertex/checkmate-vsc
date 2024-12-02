@@ -47,6 +47,53 @@ exports.showAdminPage = async (req, res) => {
     }
 };
 
+exports.showAdminPage2 = async (req, res, abc) => {
+    const student_query = "SELECT student_id, name, rrn, device_token, fid FROM student WHERE fid = ?";
+    const parent_query = "SELECT parent_id, name, rrn, fid FROM parent WHERE fid = ?";
+    
+    try {
+        const students = await new Promise((resolve, reject) => {
+            db.query(student_query, [abc], (err, result) => {
+                if (err) reject(err);
+                else {
+                    result.forEach(item => {
+                        item.type = '학생';
+                        item.attend = '출결 관리';
+                    })
+                    resolve(result);
+                }
+            });
+        });
+
+        const parents = await new Promise((resolve, reject) => {
+            db.query(parent_query, [abc], (err, result) => {
+                if (err) reject(err);
+                else {
+                    result.forEach(item => {
+                        item.type = '부모';
+                        item.attend = null;
+                    })
+                    resolve(result);
+                }
+            });
+        });
+        
+        const groupedData = {};
+        [students, parents].forEach(dataArray => {
+            dataArray.forEach(item => {
+                const fid = item.fid;
+                if (!groupedData[fid]) groupedData[fid] = [];
+                groupedData[fid].push(item);
+            });
+        });
+
+        res.render("administer", { groupedData: groupedData});
+    } catch (err) {
+        console.error("데이터베이스 쿼리 오류:", err);
+        res.status(500).send("서버 오류 발생");
+    }
+};
+
 function getStudentsByFid(fid, callback) {
     db.query('SELECT name FROM student WHERE fid = ?', [fid], (error, results) => {
         if (error) {
@@ -170,5 +217,25 @@ exports.deletePeople = (req, res) => {
         } else {
             res.json({ success: true });
         }
+    });
+}
+
+exports.search = (req, res) => {
+    const name = req.query.name;
+    const fidQuery = "SELECT fid FROM student WHERE name LIKE ?";
+
+    db.query(fidQuery, [`%${name}%`], (err, results) => {
+        if (err) {
+            console.error("검색 중 오류 발생:", err);
+            return res.status(500).send("서버 오류");
+        }
+
+        if (results.length === 0) {
+            return res.send("학생을 찾을 수 없습니다.");
+        }
+
+        const fid = results[0].fid;
+
+        this.showAdminPage2(req, res, fid);
     });
 }

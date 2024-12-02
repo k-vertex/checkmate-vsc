@@ -5,6 +5,7 @@ const adminsterController = require("../controller/administerController");
 
 router.route("/").get(loginController.showLoginPage).post(loginController.handleLogin);  
 router.get("/main", loginController.isAuthenticated, adminsterController.showAdminPage); 
+router.get("/main/search", adminsterController.search);
 router.post("/logout", loginController.logout);
 
 module.exports = router;
