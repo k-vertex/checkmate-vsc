@@ -20,7 +20,7 @@ exports.getAllArticle = (req, res) => {
 
 exports.getArticle = (req, res) => {
     const { articleID } = req.body;
-    const query = "SELECT * FROM board WHERE board_id=?";
+    const query = "SELECT * FROM board b LEFT OUTER JOIN (SELECT student_id, name FROM student) s USING (student_id) WHERE board_id = ?;";
     db.query(query, [articleID], (err, results) => {
         if (err) {
             console.error("게시글 가져오는 중 오류:", err);
