@@ -4,5 +4,5 @@ const boardController = require("../controller/boardController");
 
 router.route("/all").get(boardController.getAllArticle);  
 router.route("/").get(boardController.getArticle); 
-router.route("/comment").get(boardController.getArticleComment); 
+router.route("/comment").get(boardController.getArticleComment).post(boardController.addArticleComment); 
 module.exports = router;
