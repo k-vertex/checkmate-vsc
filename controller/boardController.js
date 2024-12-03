@@ -1,4 +1,5 @@
 const db = require("../config/dbConnector");
+const formatDate = require("../util/formatDate");
 
 exports.getAllArticle = (req, res) => {
     const { lastBoardID } = req.body;
@@ -48,6 +49,23 @@ exports.getArticleComment = (req, res) => {
         } 
         else {
             res.status(200).send("해당 게시글에 댓글이 없음");
+        }
+    });
+}
+
+exports.addArticleComment = (req, res) => {
+    const { articleID, writerID, content, userType } = req.body;
+    const studentID = userType == "학생" ? writerID : null;
+    const managerID = userType == "관계자" ? writerID : null;
+    const date = formatDateTime(new Date());
+    const query = "INSERT INTO board_comment(board_id, student_id, manager_id, content, date) VALUES (?, ?, ?, ?, ?);";
+    db.query(query, [articleID, studentID, managerID, content, date], (err, results) => {
+        if (err) {
+            console.error("게시글 가져오는 중 오류:", err);
+            res.status(500).send("오류");
+        } 
+        else {
+            res.status(200).send("성공");
         }
     });
 }
