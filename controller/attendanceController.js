@@ -2,6 +2,7 @@ const db = require("../config/dbConnector");
 const key = require("../config/securityConfig");
 const sendPushNotification = require("../FCMAppServer");
 const { formatDate, formateTime } = require("../util/formatDate");
+const moment = require('moment-timezone');
 
 exports.setDeviceAttendance = (req, res) => {
     const { deviceToken, attendance, embededKey } = req.body;
@@ -35,6 +36,92 @@ exports.getAttendanceStatus = (req, res) => {
         if(!err) {
             res.status(200).json(results);
         }
+    });
+}
+
+const getDaysInMonth = (year, month) => {
+    const days = [];
+    const date = new Date(year, month - 1, 1); 
+    const totalDays = new Date(year, month, 0).getDate(); 
+
+    for (let i = 1; i <= totalDays; i++) {
+        const day = new Date(year, month - 1, i);
+        const dayOfWeek = day.getDay();  
+        days.push({
+            date: `${year}-${String(month).padStart(2, '0')}-${String(i).padStart(2, '0')}`,
+            dayOfWeek: dayOfWeek
+        });
+    }
+    return days;
+};
+
+exports.getAttendanceStatus2 = (req, res) => {
+    const studentID = req.params.studentID;
+    const year = req.query.year || new Date().getFullYear(); 
+    const month = req.query.month || new Date().getMonth() + 1;
+
+    if (studentID == null) {
+        res.status(404).send("학생ID가 없음");
+        return;
+    }
+
+    const daysInMonth = getDaysInMonth(year, month);  
+
+    const date = new Date(year, month - 1, 1);
+    date.setHours(9, 0, 0, 0);  
+    const minDate = formatDate(date);  
+    date.setMonth(date.getMonth() + 1);  
+    const maxDate = formatDate(date);
+
+
+    const getNameQuery = "SELECT name FROM student WHERE student_id = ?";
+
+    db.query(getNameQuery, [studentID], (err, nameResults) => {
+        if (err) {
+            res.status(500).send("데이터베이스 오류");
+            return;
+        }
+
+        const studentName = nameResults[0] ? nameResults[0].name : '이름 없음';
+
+        const query = "SELECT date, checked FROM attendance WHERE student_id=? AND date >= ? AND date < ?";
+
+        db.query(query, [studentID, minDate, maxDate], (err, results) => {
+            if (err) {
+                res.status(500).send("데이터베이스 오류");
+                return;
+            }
+
+            results = results.map(record => {
+                record.date = moment(record.date).tz("Asia/Seoul").format("YYYY-MM-DD");
+                return record;
+            });
+
+            console.log(results);
+            
+            res.render('attendance', {
+                studentID: studentID,
+                year: year,
+                month: month,
+                results: results,
+                daysInMonth: daysInMonth,
+                studentName: studentName, 
+            });
+        });
+    });
+};
+
+
+exports.updateAttendanceStatus = (req, res) => {
+    const { studentID, date, checked } = req.body;
+    const query = `UPDATE attendance SET checked = ? WHERE student_id = ? AND date = ?`;
+
+    db.query(query, [checked, studentID, date], (err) => {
+        if (err) {
+            console.error("출석 상태 업데이트 실패:", err);
+            return res.status(500).send("서버 오류");
+        }
+        res.status(200).send("출석 상태 업데이트 성공");
     });
 }
 

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHECKMATE</title>
+    <link rel="stylesheet" href="/css/attendance.css">
+    <link rel="stylesheet" href="/css/administer.css">
+</head>
+<body>
+    <div class="addPage-header">
+        <a class="addPage-header-first" href="/main">
+            <img src="/img/checkmate.png" alt="#" width="60" height="60">
+            <p>CHECKMATE</p>
+        </a>
+
+        <p class="addPage-header-title"><%= studentName %> 출결 관리</p>
+    </div>
+
+
+    <div class="date-picker">
+        <form action="/attend/<%= studentID %>" method="GET">
+            <label for="year">년도:</label>
+            <input type="number" id="year" name="year" value="<%= year %>" required>
+            <label for="month">월:</label>
+            <input type="number" id="month" name="month" value="<%= month %>" required>
+            <button type="submit">조회</button>
+        </form>
+
+        <div class="color-check">
+            <span class="a">출석</span>
+            <span class="b">결석</span>
+            <span class="c">미확인</span>
+        </div>
+    </div>
+
+    <table class="calendar">
+        <thead>
+            <tr>
+                <th>일</th>
+                <th>월</th>
+                <th>화</th>
+                <th>수</th>
+                <th>목</th>
+                <th>금</th>
+                <th>토</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% 
+            let week = [];
+            daysInMonth.forEach((day, index) => {
+                if (index === 0 && day.dayOfWeek > 0) {
+                    week.push(...Array(day.dayOfWeek).fill(null)); 
+                }
+                week.push(day);
+                if (week.length === 7 || index === daysInMonth.length - 1) {
+            %>
+                    <tr>
+                        <% week.forEach(cell => { %>
+                            <% if (cell) { %>
+                                <td class="<%= 
+                                    results.some(record => new Date(record.date).toISOString().split('T')[0] === cell.date) ? 
+                                    (results.find(record => new Date(record.date).toISOString().split('T')[0] === cell.date).checked === 1 ? 
+                                    'attendance-present' : 'attendance-absent') 
+                                    : '' 
+                                    %>">
+                                    <div class="date">
+                                        <%= cell.date.split('-')[2] %>  <!-- 날짜만 출력 -->
+                                    </div>
+                                </td>
+                            <% } else { %>
+                                <td class="empty"></td>
+                            <% } %>
+                        <% }); %>
+                    </tr>
+            <% 
+                    week = [];
+                }
+            });
+            %>
+        </tbody>
+    </table>
+    
+    
+    
+
+    <script src="/js/attendance.js"></script>
+
+</body>
+</html>

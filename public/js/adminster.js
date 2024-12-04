@@ -87,3 +87,15 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 });
 
+document.querySelectorAll('.attend').forEach(button => {
+    button.addEventListener('click', (event) => {
+        const peopleElement = event.target.closest('.family-attribute--people');
+
+        const id = peopleElement.id;
+        
+        const url = `/attend/${id}`;
+
+        window.location.href = url;
+        
+    });
+});
