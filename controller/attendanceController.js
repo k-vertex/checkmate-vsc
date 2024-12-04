@@ -113,7 +113,19 @@ exports.getAttendanceStatus2 = (req, res) => {
 
 
 exports.updateAttendanceStatus = (req, res) => {
-    const { studentID, date, checked } = req.body;
+    const studentID = req.params.studentID;
+    const { year, month, day, status } = req.body;
+
+    if (!studentID || !year || !month || !day || !status) {
+        console.error("입력 값이 누락되었습니다:", req.body);
+        return res.status(400).send("입력 값이 누락되었습니다.");
+    }
+
+
+    const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+    const checked = status === "present" ? 1 : 0;
+
     const query = `UPDATE attendance SET checked = ? WHERE student_id = ? AND date = ?`;
 
     db.query(query, [checked, studentID, date], (err) => {
@@ -121,9 +133,9 @@ exports.updateAttendanceStatus = (req, res) => {
             console.error("출석 상태 업데이트 실패:", err);
             return res.status(500).send("서버 오류");
         }
-        res.status(200).send("출석 상태 업데이트 성공");
+        res.redirect(`/attend/${studentID}`);
     });
-}
+};
 
 function attend(res, deviceToken, attendance) {
     const date = formatDate(new Date());

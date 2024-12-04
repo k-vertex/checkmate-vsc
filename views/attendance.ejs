@@ -6,6 +6,7 @@
     <title>CHECKMATE</title>
     <link rel="stylesheet" href="/css/attendance.css">
     <link rel="stylesheet" href="/css/administer.css">
+    <script src="https://kit.fontawesome.com/3f8f53c026.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="addPage-header">
@@ -23,7 +24,7 @@
             <label for="year">년도:</label>
             <input type="number" id="year" name="year" value="<%= year %>" required>
             <label for="month">월:</label>
-            <input type="number" id="month" name="month" value="<%= month %>" required>
+            <input type="number" id="month" name="month" value="<%= month %>" required min="1" max="12">
             <button type="submit">조회</button>
         </form>
 
@@ -66,7 +67,7 @@
                                     : '' 
                                     %>">
                                     <div class="date">
-                                        <%= cell.date.split('-')[2] %>  <!-- 날짜만 출력 -->
+                                        <%= cell.date.split('-')[2] %> 
                                     </div>
                                 </td>
                             <% } else { %>
@@ -82,7 +83,36 @@
         </tbody>
     </table>
     
-    
+    <div class="date-change">
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-wrench"></i>
+        </div>
+    </div>
+
+    <div class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>출결 수정하기</h2>
+            <form action="/attend/<%= studentID %>" method="POST">
+                <label for="year">년도:</label>
+                <input type="number" id="year" name="year" value="<%= year %>" required>
+                
+                <label for="month">월:</label>
+                <input type="number" id="month" name="month" value="<%= month %>" required min="1" max="12">
+                
+                <label for="day">일:</label>
+                <input type="number" id="day" name="day" value="15" required min="1" max="31">
+                
+                <label for="status">상태:</label>
+                <select id="status" name="status" required>
+                    <option value="present">출석</option>
+                    <option value="absent">결석</option>
+                
+                    </select>
+                <button class="abtn" type="submit">저장</button>
+            </form>
+        </div>
+    </div>
     
 
     <script src="/js/attendance.js"></script>
