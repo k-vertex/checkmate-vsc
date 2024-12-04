@@ -44,10 +44,13 @@
 
                 </div>
                 <div class="family-attribute--headers">
+                    <i class="fa-solid fa-circle-user hidden"></i>
                     <span class="header-name">이름</span>
                     <span class="header-rrn">주민번호</span>
                     <span class="header-device-token">기기토큰</span>
                     <span class="header-type">관계</span>
+                    <span class="attend hidden">출결 관리</span>
+                    <i class="fa-solid fa-wrench hidden"></i>
                 </div>
                 <% groupedData[fid].forEach(item => { 
                     const rrnParts = item.rrn.split('-');
