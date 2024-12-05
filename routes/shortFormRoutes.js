@@ -1,7 +1,7 @@
 const express = require("express");
-const fs = require("fs");
 const router = express.Router();
+const shortFormController = require("../controller/shortFormController");
 
-router.route("/").get((req, res) => {
-)};
+router.route("/:videoPath").get(shortFormController.loadViedo);
+router.route("/").get(shortFormController.getVideoList);
 module.exports = router;
