@@ -186,10 +186,19 @@ exports.editPeople = (req, res) => {
     const {name, rrn, device_token, type } = req.body;
     const table = type === 'student' ? 'student' : 'parent';
     const rId = type === 'student' ? 'student_id' : 'parent_id';
+    
+    let query;
+    let params;
 
-    const query = `UPDATE ${table} SET name = ?, rrn = ?, device_token = ? WHERE ${rId} = ?`;
+    if (table === 'student') {
+        query = `UPDATE ${table} SET name = ?, rrn = ?, device_token = ? WHERE ${rId} = ?`;
+        params = [name, rrn, device_token, id];
+    } else {
+        query = `UPDATE ${table} SET name = ?, rrn = ? WHERE ${rId} = ?`;
+        params = [name, rrn, id];
+    }
 
-    db.query(query, [name, rrn, device_token, id], (err, result) => {
+    db.query(query, params, (err, result) => {
         if (err) {
             console.error("데이터베이스 저장 오류:", err);
             res.status(500).json({ success: false, message: "저장 중 오류가 발생했습니다." });

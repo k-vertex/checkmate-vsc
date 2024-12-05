@@ -15,8 +15,8 @@
     margin: 1.1em 2em 0 2em;
     display: flex;
     align-items: center;
-    gap: 1.4em;
     margin-bottom: 1.1em;
+    gap: 1.4em;
 }
 
 .student-name {
@@ -44,6 +44,16 @@
 .family-attribute--headers span {
     flex: 1; 
     text-align: center; 
+}
+
+.family-attribute--headers .header-device-token {
+    margin-left: 10px;
+    text-align: center;
+}
+
+.family-attribute--headers .header-type {
+    margin-left: 10px;
+    text-align: center;
 }
 
 .family-attribute--headers i {
