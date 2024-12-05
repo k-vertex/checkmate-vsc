@@ -1,5 +1,5 @@
 const db = require("../config/dbConnector");
-const formatDate = require("../util/formatDate");
+const { formatDateTime } = require("../util/formatDate");
 
 exports.getAllArticle = (req, res) => {
     const { lastBoardID } = req.query;
