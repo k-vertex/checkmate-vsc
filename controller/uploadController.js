@@ -7,9 +7,11 @@ exports.uploadBoard = (req, res) => {
         return;
     const studentID = userType == "학생" ? writer : null;
     const managerID = userType == "관계자" ? writer : null;
+    const video = req.file != null ? req.file.path : null;
+    console.log(video);
     const date = formatDateTime(new Date());
-    const query = "INSERT INTO board(student_id, manager_id, title, content, date) VALUES (?, ?, ?, ?, ?);";
-    db.query(query, [studentID, managerID, title, content, date], (err, results) => {
+    const query = "INSERT INTO board(student_id, manager_id, title, content, date, video) VALUES (?, ?, ?, ?, ?);";
+    db.query(query, [studentID, managerID, title, content, date, video], (err, results) => {
         if(err) {
             console.error("게시글 업로드 오류:", err);
             res.status(500).send("게시글 작성 실패");
