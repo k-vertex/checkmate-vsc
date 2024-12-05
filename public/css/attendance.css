@@ -1,0 +1,217 @@
+.date-picker {
+    margin: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.date-picker label {
+    font-size: 1.3em;
+    display: inline-block; 
+    width: 80px; 
+    text-align: end;
+}
+
+.date-picker input {
+    font-size: 1.1em; 
+    padding: 10px 12px; 
+    border: 1px solid rgba(114, 108, 108, 0.556);
+    border-radius: 5px;
+    width: 150px; 
+}
+
+.date-picker input:focus {
+    border-color: #3B383E; 
+    outline: none; 
+}
+
+.date-picker button {
+    font-size: 1.1em;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3B383E;
+    color: white;
+    cursor: pointer;
+}
+
+.calendar {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 90%;  
+    height: auto;  
+}
+
+.calendar th,
+.calendar td {
+    border: 1px solid #3B383E;
+    text-align: center;
+    padding: 20px;  
+    font-size: 1.2em;
+}
+
+.calendar .empty {
+    background-color: #f9f9f9;
+}
+
+.calendar .date {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1.5em;
+}
+
+.attendance-status {
+    font-weight: bold;
+    padding: 5px;
+}
+
+.attendance-present {
+    color: blue;
+}
+
+.attendance-absent {
+    color: red;
+}
+
+
+.color-check {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.2em;
+}
+
+.a {
+    color: blue;
+}
+
+.b {
+    color: red;
+}
+
+.date-change {
+    display: flex; 
+    justify-content: flex-end;
+    align-items: center; 
+}
+
+.icon-wrapper {
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center;
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%; 
+    border: 1px solid black; 
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), 
+                -2px -2px 4px rgba(255, 255, 255, 0.7); 
+    transition: transform 0.2s ease; 
+    margin-top: 2em;
+    margin-right: 1.3em;
+}
+
+.icon-wrapper:hover {
+    transform: scale(1.1); 
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.3), 
+                -3px -3px 6px rgba(255, 255, 255, 0.9); 
+}
+
+.fa-solid.fa-wrench {
+    font-size: 20px; 
+    color: black; 
+}
+
+.hidden {
+    display: none; 
+}
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.abtn {
+    background-color: #3B383E;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content label {
+    font-size: 1.1em;
+    display: inline-block; 
+    width: 50px; 
+    text-align: end;
+}
+
+.modal-content input {
+    font-size: 1.1em; 
+    padding: 10px 12px; 
+    border: 1px solid rgba(114, 108, 108, 0.556);
+    border-radius: 5px;
+    width: 150px; 
+}
+
+.modal-content input:focus {
+    border-color: #3B383E; 
+    outline: none; 
+}
+
+.modal-content button {
+    font-size: 1.1em;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3B383E;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-content select {
+    font-size: 1.1em; 
+    padding: 10px 12px; 
+    border: 1px solid rgba(114, 108, 108, 0.556);
+    border-radius: 5px; 
+    width: 160px; 
+    background-color: white;
+}
+
+.modal-content select:focus {
+    border-color: #3B383E; 
+    outline: none; 
+}
