@@ -10,7 +10,7 @@ const shortFormRoutes = require("./routes/shortFormRoutes");
 const boardRoutes = require("./routes/boardRoutes");
 
 const app = express();
-const port = 8080;
+const port = 80;
 
 app.use(express.static(path.join(__dirname, "public")));
 

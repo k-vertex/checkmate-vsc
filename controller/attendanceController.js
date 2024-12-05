@@ -13,7 +13,7 @@ exports.setDeviceAttendance = (req, res) => {
 }
 
 exports.setManualAttendance = (req, res) => {
-    const { deviceToken, attendance, id = "NULL", password = "NULL" } = req.body;
+    const { deviceToken = "NULL", attendance, id = "NULL", password = "NULL" } = req.body;
     if(id == "NULL" || password == "NULL")
         return;
     attend(res, deviceToken, attendance);
@@ -121,8 +121,7 @@ exports.updateAttendanceStatus = (req, res) => {
         return res.status(400).send("입력 값이 누락되었습니다.");
     }
 
-
-    const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const date = formatDate(new Date(`${year}-${month}-${day}`));
 
     const checked = status === "present" ? 1 : 0;
 
