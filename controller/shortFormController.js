@@ -5,7 +5,7 @@ exports.loadViedo = (req, res) => {
     range = "1023";
   }
 
-  const videoPath = req.params.videoPath;
+  const videoPath = `uploads/${req.params.videoPath}`;
   const videoSize = fs.statSync(videoPath).size;
   console.log(videoPath);
 
@@ -30,17 +30,18 @@ exports.loadViedo = (req, res) => {
 }
 
 exports.getVideoList = (req, res) => {
-  fs.readdir('../uploads', (err, files) => {
-    if (err) {
+  fs.readdir('./uploads', (err, files) => {
+    if(err) {
         console.error('파일 목록 읽는 중 오류:', err);
         res.status(500).send("오류");
         return;
     }
+    
     const items = [];
-    for(let i; i < files.length; i++) {
+    for(let i = 0; i < files.length; i++) {
       items.push({ videoPath: files[i]});
     }
-    console.log(items);
+
     res.status(200).json(items);
   });
 }
