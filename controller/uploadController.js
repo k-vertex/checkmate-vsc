@@ -1,5 +1,5 @@
 const db = require("../config/dbConnector");
-const formatDate = require("../util/formatDate");
+const { formatDateTime } = require("../util/formatDate");
 
 exports.uploadBoard = (req, res) => {
     const { title, content, writer, userType } = req.body;
@@ -8,9 +8,8 @@ exports.uploadBoard = (req, res) => {
     const studentID = userType == "학생" ? writer : null;
     const managerID = userType == "관계자" ? writer : null;
     const video = req.file != null ? req.file.path : null;
-    console.log(video);
     const date = formatDateTime(new Date());
-    const query = "INSERT INTO board(student_id, manager_id, title, content, date, video) VALUES (?, ?, ?, ?, ?);";
+    const query = "INSERT INTO board(student_id, manager_id, title, content, date, video) VALUES (?, ?, ?, ?, ?, ?);";
     db.query(query, [studentID, managerID, title, content, date, video], (err, results) => {
         if(err) {
             console.error("게시글 업로드 오류:", err);
